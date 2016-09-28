@@ -1,0 +1,91 @@
+{% extends "layout/css-header.twig" %}
+{% block content %}
+<!-- Main content -->
+<section class="content">
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-info">
+                {#<div class="box-header">#}
+                    {#<h3 class="box-title">Input masks</h3>#}
+                {#</div>#}
+                <form  method="post">
+                    <div class="box-body">
+                    <!-- Date dd/mm/yyyy -->
+                    <div class="form-group">
+                        <label>广告位:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-info-circle fa-fw"></i>
+                            </div>
+                            <input type="text" class="form-control" required name="position_name" placeholder="请输入广告位名称">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <!-- phone mask -->
+                    <div class="form-group">
+                        <label>设计宽:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-text-width fa-fw"></i>
+                            </div>
+                            <input type="text"  class="form-control" name="width" placeholder="不用写px">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <!-- phone mask -->
+                    <div class="form-group">
+                        <label>设计高:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-text-height fa-fw"></i>
+                            </div>
+                            <input type="text" class="form-control"  name="height"  placeholder="不用写px">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+                    <!-- IP mask -->
+                    <div class="form-group">
+                        <label>状态:</label>
+
+                        <div class="input-group"  style="padding-left: 36%;">
+
+                            <input type="checkbox" checked  name="state" value="1">
+
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
+
+                        <div class="input-group" style="width:100%;">
+
+                            <button type="submit" class="btn btn-group btn-block btn-success">
+                                提交
+                            </button>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                </div>
+                <!-- /.box-body -->
+                </form>
+            </div>
+            <!-- /.box -->
+            <!-- /.box -->
+        </div>
+
+    </div>
+    <!-- /.row -->
+
+</section>
+<!-- /.content -->
+{% endblock %}

@@ -1,0 +1,412 @@
+{% extends "layout/header.twig" %}
+{% block content %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header with-border text-center">
+                        <h3 class="box-title">
+                            用户资料编辑
+                        </h3>
+                    </div>
+                    <!-- form start -->
+                    <form class="form-horizontal" method="post">
+                        {#<input type="hidden" name="user_id" value="{{ user.id }}">#}
+
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">
+                                    手机号
+                                </label>
+                                <div class="col-sm-9 input-group">
+                            <span class="input-group-addon">
+                                <i class="fa  fa-mobile-phone  fa-fw"></i>
+                            </span>
+                                    <input type="number" disabled class="form-control" id="inputPassword3" value="{{ user.mobile }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">
+                                    邮箱
+                                </label>
+
+                                <div class="col-sm-9 input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-envelope-o  fa-fw"></i>
+                            </span>
+                                    <input type="email" name="email" class="form-control" id="inputEmail3" value="{{ user.email }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">
+                                    真实姓名
+                                </label>
+
+                                <div class="col-sm-9 input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-user  fa-fw"></i>
+                            </span>
+                                    <input type="text" name="real_name" class="form-control" id="inputEmail3" value="{{ user.real_name }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">
+                                    QQ
+                                </label>
+
+                                <div class="col-sm-9 input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-qq  fa-fw"></i>
+                            </span>
+                                    <input type="text" name="qq" class="form-control" id="inputEmail3" value="{{ user.qq }}">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">
+                                    微信
+                                </label>
+
+                                <div class="col-sm-9 input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-wechat  fa-fw"></i>
+                            </span>
+                                    <input type="text" name="weixin" class="form-control" id="inputEmail3" value="{{ user.weixin }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">
+                                    生日
+                                </label>
+
+                                <div class="col-sm-9 input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-angellist  fa-fw"></i>
+                            </span>
+                                    <input type="text" name="birthday" class="form-control" id="inputEmail3" value="{{ user.birthday }}" placeholder="用户未填写生日">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">
+                                    会员等级
+                                </label>
+
+                                <div class="col-sm-9 input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-frown-o  fa-fw"></i>
+                            </span>
+
+                                    <select class="form-control" name="grade">
+                                        {% for grade in grades %}
+
+                                            {% if user.grade == grade['grade'] %}
+                                                <option selected value="{{ user.grade }}#{{ grade['sale'] }}">
+                                                    {{ grade['grade'] }}
+                                                </option>
+                                            {% else %}
+                                                <option  value="{{ grade['grade'] }}#{{ grade['sale'] }}">
+                                                    {{ grade['grade'] }}
+                                                </option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">
+                                    优惠百分比
+                                </label>
+
+                                <div class="col-sm-9 input-group">
+                            <span class="input-group-addon">
+                                <i class="fa  fa-exclamation fa-fw"></i>
+                            </span>
+                                    <input disabled type="number" min="0" max="100" name="grade_sale" class="form-control" id="inputEmail3" value="{{ user.grade_sale }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">
+                                    余额
+                                </label>
+                                <div class="col-sm-9 input-group">
+                            <span class="input-group-addon">
+                                <i class="fa  fa-money  fa-fw"></i>
+                            </span>
+                                    <input type="text"  name="balance" class="form-control" id="inputPassword3" value="{{ user.balance }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">
+                                    善贝
+                                </label>
+                                <div class="col-sm-9 input-group">
+                            <span class="input-group-addon">
+
+                                <i class="fa  fa-money  fa-fw"></i>
+                            </span>
+                                    <input type="text"  name="saapay" class="form-control" id="inputPassword3" value="{{ user.saapay }}">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">
+                                    性别
+                                </label>
+
+                                <div class="col-sm-9 input-group">
+                            <span class="input-group-addon">
+                                <i class="fa  fa-smile-o  fa-fw"></i>
+                            </span>
+                                    <input type="text" disabled  class="form-control" id="inputPassword3" value="{{ sex[user.sex] | default('')}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">
+                                    注册时间
+                                </label>
+
+                                <div class="col-sm-9 input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-calendar-check-o  fa-fw"></i>
+                            </span>
+                                    <input type="text" disabled  class="form-control" id="inputPassword3" value="{{ date('Y-m-d H:i:s',user.create_time) }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">
+                                    注册IP
+                                </label>
+
+                                <div class="col-sm-9 input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-adjust  fa-fw"></i>
+                                </span>
+                                    <input type="text" disabled class="form-control" id="inputPassword3" value="{{ user.create_ip }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">
+                                    最后登录时间
+                                </label>
+
+                                <div class="col-sm-9 input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-calendar-check-o  fa-fw"></i>
+                            </span>
+                                    <input type="text" disabled  class="form-control" id="inputPassword3" value="{{ date('Y-m-d H:i:s',user.last_time) }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <div class="checkbox">
+                                        <label>
+
+                                            <input {{ state[user.state] | default('') }} type="checkbox" class="flat-red" name="state" value="1">
+                                            帐号状态
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-success btn-block">
+                                修改资料
+                            </button>
+                        </div>
+                        <!-- /.box-footer -->
+                    </form>
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header text-center">
+                        <h3 class="box-title">
+                            优惠券
+                        </h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-hover table-bordered text-center">
+                            <tr>
+                                <th>ID</th>
+                                <th>券</th>
+                                <th>面值</th>
+                                <th>条件</th>
+                                <th>失效时间</th>
+                                <th>商品限制</th>
+                                <th>状态</th>
+                            </tr>
+
+                            {% for coupon in coupons %}
+                                <tr>
+                                    <td>
+                                        {{ coupon.id }}
+                                    </td>
+                                    <td>
+                                        {{ coupon.ticket }}
+                                    </td>
+                                    <td>
+                                        {{ coupon.value }}元
+                                    </td>
+                                    <td>
+                                        >=  {{ coupon.condition }}
+                                    </td>
+                                    <td>
+                                        {{ date('Y-m-d',coupon.invalid_time) }}
+                                    </td>
+                                    <td>
+
+                                        {{ coupon.goods_limit }}
+                                    </td>
+                                    <td>
+                                        {% if coupon.is_use %}
+                                            <span class="label label-default">
+                                                已使用
+                                            </span>
+
+                                            {% else %}
+
+                                            <span class="label label-success">
+                                                未使用
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+
+                                {% else %}
+                                    <tr>
+                                        <td colspan="100">
+                                            暂无优惠券~
+                                        </td>
+                                    </tr>
+                            {% endfor %}
+
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                    <!-- /.box -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header text-center">
+                        <h3 class="box-title">
+                            收货地址
+                        </h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-hover table-bordered text-center">
+                            <tr>
+                                <th>ID</th>
+                                <th>收货人</th>
+                                <th>手机号</th>
+                                <th>地址</th>
+                                <th>添加时间</th>
+                                <th>是否默认</th>
+                            </tr>
+
+                            {% for item in address %}
+                                <tr>
+                                    <td>
+                                        {{ item.id }}
+                                    </td>
+                                    <td>
+                                        {{ item.real_name }}
+                                    </td>
+                                    <td>
+                                        {{ item.mobile }}
+                                    </td>
+                                    <td>
+                                        {{ item.province }}
+                                        {{ item.city }}
+                                        {{ item.area }}
+                                        {{ item.address }}
+                                    </td>
+                                    <td>
+                                        {{ date('Y-m-d H:i:s',item.create_time) }}
+                                    </td>
+
+                                    <td>
+                                        {% if item.defaults %}
+                                            <span class="label label-success">
+                                                默认
+                                            </span>
+
+                                        {% else %}
+
+                                            <span class="label label-default">
+                                                备用
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+
+                            {% else %}
+                                <tr>
+                                    <td colspan="100">
+                                        暂未添加地址
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+{% endblock %}
+
+{% block js %}
+<!-- jQuery 2.2.3 -->
+<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+
+<!-- FastClick -->
+<script src="/plugins/fastclick/fastclick.js"></script>
+
+<!-- AdminLTE App -->
+<script src="/dist/js/app.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/dist/js/demo.js"></script>
+{% endblock %}
+
+

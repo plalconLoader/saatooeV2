@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>善土e配 - 后台管理中心</title>
+
+    {% block css %}
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <!-- Bootstrap 3.3.6 -->
+        <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="/dist/css/font-awesome.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="/dist/css/ionicons.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="/dist/css/AdminLTE.min.css">
+        <!-- AdminLTE Skins. Choose a skin from the css/skins
+             folder instead of downloading all of them to reduce the load. -->
+        <link rel="stylesheet" href="/dist/css/skins/_all-skins.min.css">
+
+        {#开关选择#}
+        <link href="/plugins/bootstrap-switch-master/dist/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">
+        <!--<link href="http://getbootstrap.com/assets/css/docs.min.css" rel="stylesheet">-->
+        <link href="/plugins/bootstrap-switch-master/docs/css/main.css" rel="stylesheet">
+        {#开关选择end#}
+    {% endblock %}
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="/dist/js/html5shiv.min.js"></script>
+    <script src="/dist/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<!-- ADD THE CLASS fixed TO GET A FIXED HEADER AND SIDEBAR LAYOUT -->
+<!-- the fixed layout is not compatible with sidebar-mini -->
+<body class="hold-transition skin-blue fixed sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+
+    <!-- 顶部栏 登录信息等 -->
+    {% block head %}
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="/index/index" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>善土</b></span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>善土e配</b>管理中心</span>
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!-- Messages: style can be found in dropdown.less-->
+                        <li class="dropdown messages-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-envelope-o"></i>
+                                <span class="label label-success">4</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">退款未处理</li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <li><!-- start message -->
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                                </div>
+                                                <h4>
+                                                    Support Team
+                                                    <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                        <!-- end message -->
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">See All Messages</a></li>
+                            </ul>
+                        </li>
+                        <!-- Notifications: style can be found in dropdown.less -->
+                        <li class="dropdown notifications-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-bell-o"></i>
+                                <span class="label label-warning">10</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">You have 10 notifications</li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">View all</a></li>
+                            </ul>
+                        </li>
+                        <!-- Tasks: style can be found in dropdown.less -->
+                        <li class="dropdown tasks-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-flag-o"></i>
+                                <span class="label label-danger">9</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">待发货</li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <li><!-- Task item -->
+                                            <a href="#">
+                                                <h3>
+                                                    Design some buttons
+                                                    <small class="pull-right">20%</small>
+                                                </h3>
+                                                <div class="progress xs">
+                                                    <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                        <span class="sr-only">20% Complete</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <!-- end task item -->
+                                    </ul>
+                                </li>
+                                <li class="footer">
+                                    <a href="#">View all tasks</a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <li class="dropdown user user-menu">
+                            <a href="/" target="_blank">
+                                <span class="hidden-xs">
+                                    网站首页
+                                </span>
+                            </a>
+                        </li>
+
+
+                        <!-- 管理员登录信息 -->
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+                                您好：
+                                <span class="hidden-xs">
+                                    ymwlpay
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu">
+
+                                <!-- 帐号退出等 -->
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a href="#" onclick="pwd_change()" class="btn btn-default btn-flat">
+                                            修改密码
+                                        </a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="#" onclick="logout()" class="btn btn-default btn-flat">
+                                            退出帐号
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+    {% endblock %}
+
+
+    <!-- 左边菜单栏 -->
+    {% block sidebar %}
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu">
+                    {#<li class="header">MAIN NAVIGATION</li>#}
+                    <li class="">
+                        <a href="/index/index">
+                            <i class="fa fa-dashboard"></i> <span>
+                                后台首页
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="treeview" id="user">
+                        <a href="#">
+                            <i class="fa fa-user"></i>
+                            <span>
+                                会员管理
+                            </span>
+
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+
+                        <ul class="treeview-menu">
+                            <li>
+                                <a href="/user/list">
+                                    <i class="fa fa-users"></i>
+                                    会员列表
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/user/grade">
+                                    <i class="fa fa-gratipay"></i>
+                                    会员等级
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/user/recycleList">
+                                    <i class="fa fa-recycle"></i>
+                                    回收站用户
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview" id="type">
+                        <a href="#">
+                            <i class="fa fa-save"></i>
+                            <span>
+                                分类管理
+                            </span>
+
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+
+                        <ul class="treeview-menu">
+                            <li>
+                                <a href="/type/goodsType">
+                                    <i class="fa fa-shopping-bag"></i>
+                                    商品分类
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview" id="advertisement">
+                        <a href="#">
+                            <i class="fa fa-pied-piper"></i>
+                            <span>广告管理</span>
+                            <span class="pull-right-container">
+                              <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a href="/advertisement/position">
+                                    <i class="fa fa-amazon"></i>
+                                    广告位
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/advertisement/adList">
+                                    <i class="fa fa-balance-scale"></i>
+                                    广告列表
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <li class="treeview" id="market">
+                        <a href="#">
+                            <i class="fa fa-laptop"></i>
+                            <span>
+                                营销管理
+                            </span>
+
+                            <span class="pull-right-container">
+                              <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a href="/market/goods">
+                                    <i class="fa fa-share-alt"></i>
+                                    商品促销
+                                </a>
+                            </li>
+
+
+                            <li>
+                                <a href="/market/sale">
+                                    <i class="fa fa-share"></i>
+                                    满减营销
+                                </a>
+                            </li>
+
+
+                            <li>
+                                <a href="/market/ticket">
+                                    <i class="fa fa-shopping-bag"></i>
+                                    商品兑换券
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/market/coupon">
+                                    <i class="fa fa-hand-o-right"></i>
+                                    订单优惠券
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-edit"></i> <span>Forms</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="../forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
+                            <li><a href="../forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a>
+                            </li>
+                            <li><a href="../forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-table"></i> <span>Tables</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="../tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
+                            <li><a href="../tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="../calendar.html">
+                            <i class="fa fa-calendar"></i> <span>Calendar</span>
+            <span class="pull-right-container">
+              <small class="label pull-right bg-red">3</small>
+              <small class="label pull-right bg-blue">17</small>
+            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../mailbox/mailbox.html">
+                            <i class="fa fa-envelope"></i> <span>Mailbox</span>
+            <span class="pull-right-container">
+              <small class="label pull-right bg-yellow">12</small>
+              <small class="label pull-right bg-green">16</small>
+              <small class="label pull-right bg-red">5</small>
+            </span>
+                        </a>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-folder"></i> <span>Examples</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="../examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
+                            <li><a href="../examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
+                            <li><a href="../examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
+                            <li><a href="../examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
+                            <li><a href="../examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
+                            <li><a href="../examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
+                            <li><a href="../examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
+                            <li><a href="../examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
+                            <li><a href="../examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-share"></i> <span>Multilevel</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+                            <li>
+                                <a href="#"><i class="fa fa-circle-o"></i> Level One
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-circle-o"></i> Level Two
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                                            <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+                        </ul>
+                    </li>
+                    {#<li><a href="/documentation/index.html"><i class="fa fa-book"></i> <span>Documentation</span></a>#}
+                    {#</li>#}
+                    {#<li class="header">LABELS</li>#}
+                    {#<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>#}
+                    {#<li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>#}
+                    {#<li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>#}
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+    {% endblock %}
+
+    <!-- 主体内容区域 -->
+    {% block content %}
+
+    {% endblock %}
+</div>
+
+<!-- js包含区域 -->
+{% block js %}
+    <!-- jQuery 2.2.3 -->
+    <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="/plugins/fastclick/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/dist/js/app.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="/dist/js/demo.js"></script>
+
+    {#开关选择#}
+    <script src="/plugins/bootstrap-switch-master/docs/js/highlight.js"></script>
+    <script src="/plugins/bootstrap-switch-master/dist/js/bootstrap-switch.js"></script>
+    <script src="/plugins/bootstrap-switch-master/docs/js/main.js"></script>
+{% endblock %}
+
+{#公共的这两个JS#}
+<script src="/plugins/layer-v2.4/layer/layer.js"></script>
+<script src="/dist/js/manager.js"></script>
+<script>
+    var valid = {
+        icon:1,
+        time:2000,
+        shade:0.6,
+        shadeClose:true
+    };
+
+    var invalid = {
+        icon:2,
+        time:2000,
+        shade:0.6,
+        shadeClose:true
+    };
+
+    var active = function () { //自动选中菜单栏
+        var pathname = window.location.pathname.split('/');
+        pathname.shift(); //去掉第一个空字符串
+        var id = pathname.shift();
+        var abs = pathname.shift();
+        var object = $('#' + id);
+        object.addClass('active');
+
+        var liObject = object.children('.treeview-menu').children('li');
+
+        liObject.each(function (key,obj){
+            var reg = "/"+abs+"$/";
+            var match = $(obj).children('a').attr('href').match(eval(reg));
+            if(match){
+                $(obj).addClass('active');
+                return;
+            }
+        })
+    };
+    active();
+</script>
+
+{% block pageJs %}
+
+{% endblock %}
+
+</body>
+</html>

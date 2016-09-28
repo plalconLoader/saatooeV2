@@ -1,0 +1,180 @@
+{% extends "layout/css-header.twig" %}
+{% block content %}
+<!-- Main content -->
+<section class="content">
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-info">
+                {#<div class="box-header">#}
+                    {#<h3 class="box-title">Input masks</h3>#}
+                {#</div>#}
+                <form  method="post" onsubmit="return market_submit();">
+                    <div class="box-body">
+                    <!-- Date dd/mm/yyyy -->
+                    <div class="form-group">
+                        <label>活动名称:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-info-circle fa-fw"></i>
+                            </div>
+                            <input type="text" class="form-control" required name="name" placeholder="请输入活动名称" value="{{ data.name }}">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
+                        <label>时间选择:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-dashcube fa-fw"></i>
+                            </div>
+                            <input type="text" readonly id="reservation" class="form-control" style="cursor: no-drop;" name="between_time"  placeholder="单击选择时间" value="{{ date('Y-m-d H:i:s',data.begin_time) }} 到 {{ date('Y-m-d H:i:s',data.invalid_time) }}">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+
+                    <!-- phone mask -->
+                    <div class="form-group">
+                        <label>活动类型:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-balance-scale fa-fw"></i>
+                            </div>
+
+
+                            <select name="classify" required class="form-control">
+                                <option value="">
+                                    --请选择活动类型--
+                                </option>
+                                {% for key,item in classify %}
+
+                                    {% if key != 6 %}
+
+                                        <option {{ selected[key] | default('')}} value="{{ key }}">
+                                            {{ item }}
+                                        </option>
+                                    {% endif %}
+
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <!-- phone mask -->
+                    <div class="form-group">
+                        <label>条件:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-connectdevelop fa-fw"></i>
+                            </div>
+                            <input type="text" class="form-control" required name="condition"  placeholder="请输入满足的条件" value="{{ data.condition }}">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+
+                    <!-- phone mask -->
+                    <div class="form-group">
+                        <label>赠送:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-gift fa-fw"></i>
+                            </div>
+                            <input type="text" class="form-control"  required name="value"  placeholder="赠送的值" value="{{ data.value }}">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+
+
+                    <!-- phone mask -->
+                    {#<div class="form-group">#}
+                        {#<label>限制商品ID:</label>#}
+
+                        {#<div class="input-group">#}
+                            {#<div class="input-group-addon">#}
+                                {#<i class="fa fa-ban fa-fw"></i>#}
+                            {#</div>#}
+                            {#<input type="text" class="form-control"  name="goods_limit"  placeholder="订单中有这些商品不会参与活动,可以不填写">#}
+                        {#</div>#}
+                        {#<!-- /.input group -->#}
+                    {#</div>#}
+
+                    <!-- IP mask -->
+                    <div class="form-group">
+                        <label>状态:</label>
+
+                        <div class="input-group"  style="padding-left: 36%;">
+
+                            <input type="checkbox" {{ checked[data.state] | default('')}}  name="state" value="1">
+
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
+
+                        <div class="input-group" style="width:100%;">
+
+                            <button type="submit" class="btn btn-group btn-block btn-success">
+                                添加活动
+                            </button>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                </div>
+                <!-- /.box-body -->
+                </form>
+            </div>
+            <!-- /.box -->
+            <!-- /.box -->
+        </div>
+
+    </div>
+    <!-- /.row -->
+
+</section>
+<!-- /.content -->
+{% endblock %}
+
+{% block myJs %}
+    <script>
+        $(
+                function () {
+                    //格式化时间插件
+                    $('#reservation').daterangepicker({
+                        separator:' 到 ',
+                        showDropdowns : true,
+                        timePicker : true, //是否显示小时和分钟
+                        timePickerIncrement : 1, //时间的增量，单位为分钟
+                        timePicker12Hour : false, //是否使用12小时制来显示时间
+                        opens : 'right', //日期选择框的弹出位置
+                        cancelClass : 'btn-small',
+                        format : 'YYYY-MM-DD HH:mm:ss' //控件中from和to 显示的日期格式
+                    });
+                }
+        );
+
+        var market_submit = function () {
+
+            var value = $('#reservation').val();
+            if(value.length <= 1){
+                layer.msg('请选择时间!',{icon:2,time:2000,shade:0.6,shadeClose:true});
+                return false;
+            }else{
+                return true;
+            }
+
+
+        }
+    </script>
+{% endblock %}
+

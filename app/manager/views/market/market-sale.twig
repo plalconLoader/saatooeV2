@@ -1,0 +1,242 @@
+{% extends "layout/header.twig" %}
+{% block content %}
+    {#<link rel="stylesheet" href="/plugins/databases/dataTables.bootstrap.css">#}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header text-center">
+            <h1>
+                满减营销列表
+            </h1>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <!-- /.col -->
+                {#<form action="" class="form-group">#}
+                    {#<div class="col-md-12 ">#}
+                        {#<div class="box">#}
+                            {#<div class="box-header">#}
+
+                                {#<div class="col-md-3">#}
+                                    {#<select name="position_name" class="form-control" >#}
+
+                                        {#&#123;&#35;{% for item in position %}&#35;&#125;#}
+                                            {#&#123;&#35;<option value="{{ item.position_name }}">&#35;&#125;#}
+                                                {#&#123;&#35;{{ item.position_name }}&#35;&#125;#}
+                                            {#&#123;&#35;</option>&#35;&#125;#}
+                                        {#&#123;&#35;{% endfor %}&#35;&#125;#}
+                                    {#</select>#}
+                                {#</div>#}
+
+                                {#<div class="col-md-1">#}
+                                    {#<button type="submit" class="btn btn-success">#}
+                                        {#<i class="fa fa-search"></i>#}
+                                        {#筛选广告位#}
+                                    {#</button>#}
+                                {#</div>#}
+
+                                {#<div class="col-md-1" style="float: right">#}
+                                    {#<a href="">#}
+                                        {#<span  type="submit" class="btn btn-danger">#}
+                                            {#<i class="fa fa-refresh"></i>#}
+                                            {#重新加载#}
+                                        {#</span>#}
+                                    {#</a>#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</div>#}
+                        {#<!-- /.box -->#}
+                    {#</div>#}
+                {#</form>#}
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title"></h3>
+
+                            <div class="box-tools" style="float: right;left: 6px;">
+                                <button class="btn btn-success" onclick="handle_market()">
+                                    <i class="fa fa-amazon fa-fw"></i>
+                                    新增营销活动
+                                </button>
+                            </div>
+
+                            <div class="box-tools">
+                                <div class="input-group input-group-sm" style="width: 1px;">
+
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn bg-olive btn-flat btn-xs">
+                                            <i class="fa fa-calendar"></i>
+                                            共有营销活动：{{ data.total_items | default(0) }}个
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-hover  table-bordered text-center">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>活动名称</th>
+                                    <th>类型</th>
+                                    <th>条件</th>
+                                    <th>赠送</th>
+                                    <th>开始时间</th>
+                                    <th>结束时间</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                                <tbody id="tbody">
+                                {% for item in data.items %}
+                                    <tr id="market_{{ item.id }}">
+
+                                        <td>
+                                            {{ item.id }}
+                                        </td>
+
+                                        <td>
+                                            {{ item.name }}
+                                        </td>
+
+                                        <td>
+                                            {{ classify[item.classify] }}
+                                        </td>
+
+                                        <td>
+                                            {{ item.condition }}
+                                        </td>
+
+                                        <td>
+                                            {{ item.value }}
+                                        </td>
+
+                                        <td>
+                                            {{ date('Y-m-d H:i:s',item.begin_time) }}
+                                        </td>
+
+                                        <td>
+                                            {{ date('Y-m-d H:i:s',item.invalid_time) }}
+                                        </td>
+
+                                        <td>
+
+                                            {% if item.state == 1 %}
+                                                {% if item.invalid_time <= time() %}
+                                                    <span class="label label-danger">
+                                                        已过期
+                                                    </span>
+                                                {% else %}
+                                                    <span class="label label-success">
+                                                        营销中
+                                                    </span>
+                                                {% endif %}
+                                            {% else %}
+                                                <span class="label label-default">
+                                                    未开启
+                                                </span>
+                                            {% endif %}
+                                        </td>
+
+                                        <td>
+                                            <button onclick="handle_market({{ item.id }})" class="btn btn-success btn-xs" title="">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+
+                                            <button onclick="user_recycle('{{ item.id }}')" class="btn btn-danger btn-xs" title="删除到回收站">
+                                                <i class="fa fa-remove"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="100">
+                                            暂无广告
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+            </div>
+
+            {#分页页面#}
+            {% if data.total_pages > 1 %}
+                {% include 'layout/page.twig' %}
+            {% endif %}
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <script>
+        var user_recycle = function (mid) {
+            layer.confirm('删除营销活动?', function (index) {
+                $.ajax({
+                    url:'stateHandle',
+                    type:'post',
+                    data:{
+                        mid:mid
+                    },
+                    success:function($data){
+
+                        if($data.msg == 'valid'){
+                            $('#market_' + mid).fadeOut(function () {
+                                $(this).remove();
+                                layer.msg('删除成功!',valid);
+                                setTimeout(function () {
+                                    if($('#tbody').children('tr').length <= 0){
+                                        window.location.reload();
+                                    }
+                                },1)
+                            });
+
+                        }else{
+                            layer.msg('回收错误,或没有权限操作!',invalid)
+                        }
+
+                        layer.close(index);
+                    },
+                    error:function(){
+                        setTimeout(function(){
+                            window.location.reload(1);
+                        },1500)
+                    }
+                });
+            })
+        };
+    </script>
+{% endblock %}
+
+{% block pageJs %}
+    <script>
+        var handle_market = function (id) {
+            var url = '';
+            var title = '';
+            if(id){
+                url = '/market/editSale/' + id;
+                title = '更改营销活动';
+            }else{
+                url = '/market/addSale';
+                title = '添加营销活动';
+            }
+
+            layer.open({
+                type: 2,
+                shade: 0.6,
+                shadeClose:false,
+                title:title,
+                area: ['45%','68%'],
+                content: url
+            });
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends "layout/css-header.twig" %}
+{% block content %}
+<!-- Main content -->
+<section class="content">
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-info">
+                {#<div class="box-header">#}
+                    {#<h3 class="box-title">Input masks</h3>#}
+                {#</div>#}
+                <form  method="post">
+                    <div class="box-body">
+                    <!-- Date dd/mm/yyyy -->
+                    <div class="form-group">
+                        <label>等级名称:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-check-circle-o"></i>
+                            </div>
+                            <input type="text" class="form-control" required name="grade">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <!-- phone mask -->
+                    <div class="form-group">
+                        <label>开始经验:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-hourglass-start"></i>
+                            </div>
+                            <input type="text"  required class="form-control" name="start_exp">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <!-- phone mask -->
+                    <div class="form-group">
+                        <label>结束经验:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-hourglass-end"></i>
+                            </div>
+                            <input type="text" class="form-control" required name="end_exp">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <!-- IP mask -->
+                    <div class="form-group">
+                        <label>优惠额度:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-save"></i>
+                            </div>
+                            <input required type="number" min="0" max="99" name="sale" class="form-control">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
+
+                        <div class="input-group" style="width:100%;">
+
+                            <button type="submit" class="btn btn-group btn-block btn-success">
+                                提交
+                            </button>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                </div>
+                <!-- /.box-body -->
+                </form>
+            </div>
+            <!-- /.box -->
+            <!-- /.box -->
+        </div>
+
+    </div>
+    <!-- /.row -->
+
+</section>
+<!-- /.content -->
+{% endblock %}

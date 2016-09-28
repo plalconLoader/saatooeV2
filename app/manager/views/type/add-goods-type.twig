@@ -1,0 +1,115 @@
+{% extends "layout/css-header.twig" %}
+{% block content %}
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-info">
+                    {#<div class="box-header">#}
+                    {#<h3 class="box-title">Input masks</h3>#}
+                    {#</div>#}
+                    <form  method="post">
+                        <div class="box-body">
+                            <!-- Date dd/mm/yyyy -->
+                            <div class="form-group">
+                                <label>分类名称:</label>
+
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-check-circle-o"></i>
+                                    </div>
+                                    <input type="text" class="form-control" required name="name">
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                            <!-- /.form group -->
+
+                            <!-- phone mask -->
+                            <div class="form-group">
+                                <label>上级分类:</label>
+
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa  fa-angle-double-up"></i>
+                                    </div>
+                                    <select name="parent"  class="form-control">
+
+                                        <option value="0">
+                                            添加为一级分类
+                                        </option>
+
+                                        {% for type in types %}
+
+                                            {% if type.pid == 0 %}
+                                                <option value="{{ type.id }}" style="color: red">
+                                                    {{ type.name }}
+                                                </option>
+
+                                                {% else %}
+
+                                                    <option value="{{ type.id }}">
+                                                        {{ str_repeat("　",substr_count(type.path,',') * 2) }}
+                                                        {{ type.name }}
+                                                    </option>
+                                            {% endif %}
+
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                            <!-- /.form group -->
+
+                            <!-- phone mask -->
+                            <div class="form-group">
+                                <label>排序值:</label>
+
+                                <div class="input-group">
+                                    <div class="input-group-addon" style="">
+                                        <i class="fa  fa-info"></i>
+                                    </div>
+                                    <input placeholder="只对一级分类有效" type="number" class="form-control"  name="sort">
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                            <!-- /.form group -->
+
+                            <!-- IP mask -->
+                            <div class="form-group">
+                                <label>状态:</label>
+                                <!-- /.input group -->
+
+                                <div class="input-group" style="padding-left: 16%">
+                                    <input type="checkbox" id="switch-handleWidth"  data-handle-width="130" checked  name="state" value="1">
+                                </div>
+                            </div>
+                            <!-- /.form group -->
+
+                            <div class="form-group">
+
+                                <div class="input-group" style="width:100%;">
+
+                                    <button type="submit" class="btn btn-group btn-block btn-success">
+                                        提交
+                                    </button>
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+
+
+                        </div>
+                        <!-- /.box-body -->
+                    </form>
+                </div>
+                <!-- /.box -->
+                <!-- /.box -->
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+    </section>
+    <!-- /.content -->
+{% endblock %}
+
+

@@ -1,0 +1,173 @@
+{% extends "layout/header.twig" %}
+{% block content %}
+    <div class="content-wrapper">
+        <section class="content-header text-center">
+            <h1>
+                会员等级列表
+            </h1>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+
+                <!-- /.col -->
+                {#<form action="" class="form-group">#}
+                    {#<div class="col-md-12 ">#}
+                        {#<div class="box">#}
+                            {#<div class="box-header">#}
+
+                                {#<div class="col-md-1">#}
+                                    {#<select name="primary" class="form-control" style="width: 130px;">#}
+                                        {#<option {{ selected['u_id']  | default('')}} value="u_id">用户ID</option>#}
+                                        {#<option {{ selected['u_mobile']  | default('')}} value="u_mobile">手机号码</option>#}
+                                    {#</select>#}
+                                {#</div>#}
+
+                                {#<div class="col-md-2">#}
+                                    {#<input type="text" name="query" class="form-control" placeholder="请输入相应信息" value="{{ _GET['query'] | default('') }}">#}
+                                {#</div>#}
+
+                                {#<div class="col-md-1">#}
+                                    {#<button type="submit" class="btn btn-success">#}
+                                        {#<i class="fa fa-search"></i>#}
+                                        {#搜索#}
+                                    {#</button>#}
+                                {#</div>#}
+
+                                {#<div class="col-md-1" style="float: right">#}
+                                    {#<a href="{{ url('user/list') }}">#}
+                                        {#<span  type="submit" class="btn btn-danger">#}
+                                            {#<i class="fa fa-refresh"></i>#}
+                                            {#重新加载#}
+                                        {#</span>#}
+                                    {#</a>#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</div>#}
+                        {#<!-- /.box -->#}
+                    {#</div>#}
+                {#</form>#}
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title"></h3>
+
+                            <div class="box-tools" style="float: right;left: 6px;">
+                                <button class="btn btn-success" onclick="handle_grade()">
+                                    <i class="fa fa-gratipay"></i>
+                                    添加会员等级
+                                </button>
+                            </div>
+
+
+                            <div class="box-tools">
+
+                                <div class="input-group input-group-sm" style="width: 1px;">
+
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn bg-olive btn-flat btn-xs">
+                                            <i class="fa fa-calendar"></i>
+                                            共有等级：{{ data.total_items | default(0) }}个
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-hover  table-bordered text-center">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>名称</th>
+                                    <th>开始经验</th>
+                                    <th>结束经验</th>
+                                    <th>优惠额度</th>
+                                    <th>操作</th>
+                                </tr>
+                                <tbody id="tbody">
+                                {% for item in data.items %}
+                                    <tr id="user_{{ item.id }}">
+
+                                        <td>
+                                            {{ item.id }}
+                                        </td>
+                                        <td>
+                                            {{ item.grade }}
+                                        </td>
+                                        <td>
+                                            {{ item.start_exp }}
+                                        </td>
+                                        <td>
+                                            {{ item.end_exp }}
+                                        </td>
+                                        <td>
+                                            {{ item.sale }}%
+                                        </td>
+
+                                        <td>
+                                            <a onclick="handle_grade('{{ item.id }}')" href="javascript:">
+                                                <button class="btn btn-success btn-xs" title="编辑用户">
+                                                    <i class="fa fa-edit"></i>
+                                                </button>
+                                            </a>
+
+                                            {#<button onclick="user_recycle('{{ item.id }}')" class="btn btn-danger btn-xs" title="删除到回收站">#}
+                                                {#<i class="fa fa-remove"></i>#}
+                                            {#</button>#}
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="100">
+                                            暂无注册用户
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+            </div>
+
+            {#分页页面#}
+            {% if data.total_pages > 1 %}
+                {% include 'layout/page.twig' %}
+            {% endif %}
+        </section>
+        <!-- /.content -->
+    </div>
+{% endblock %}
+
+{% block pageJs %}
+
+    <script>
+        handle_grade = function (id) {
+
+            var url = '';
+            if(id){
+                url = '/user/editGrade/' + id;
+            }else{
+                url = '/user/addGrade';
+            }
+
+            layer.open({
+                type: 2,
+                shade: 0.6,
+                shadeClose:false,
+                area: ['30%','50%'],
+                content: url,
+                zIndex: layer.zIndex
+            });
+        }
+    </script>
+{% endblock %}
+
+

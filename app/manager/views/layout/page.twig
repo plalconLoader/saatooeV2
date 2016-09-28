@@ -1,0 +1,48 @@
+<div class="row" style="float:right;">
+    <div class="col-sm-12">
+        <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+            <ul class="pagination">
+
+                <li class="paginate_button previous">
+                    <a href="javascript:void(0);">
+                        共
+                        <b style="color: red;">{{ data.total_pages }}</b>
+                        页
+                    </a>
+                </li>
+
+                <li class="paginate_button previous">
+                    <a href="javascript:void(0);">
+                        当前第
+                        <b style="color: red;">{{ data.current }}</b>
+                        页
+                    </a>
+                </li>
+
+                <li class="paginate_button previous">
+                    <a href="?page={{ data.first }}{{ append }}">
+                        首页
+                    </a>
+                </li>
+
+                <li class="paginate_button">
+                    <a href="?page={{ data.before }}{{ append }}" aria-controls="example2">
+                        上一页
+                    </a>
+                </li>
+
+                <li class="paginate_button">
+                    <a href="?page={{ data.next }}{{ append }}" aria-controls="example2">
+                        下一页
+                    </a>
+                </li>
+
+                <li class="paginate_button next" id="example2_next">
+                    <a href="?page={{ data.last }}{{ append }}" aria-controls="example2">
+                        尾页
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

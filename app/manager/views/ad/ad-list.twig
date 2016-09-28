@@ -1,0 +1,240 @@
+{% extends "layout/header.twig" %}
+{% block content %}
+    {#<link rel="stylesheet" href="/plugins/databases/dataTables.bootstrap.css">#}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header text-center">
+            <h1>
+                广告列表
+            </h1>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <!-- /.col -->
+                <form action="" class="form-group">
+                    <div class="col-md-12 ">
+                        <div class="box">
+                            <div class="box-header">
+
+                                <div class="col-md-3">
+                                    <select name="position_name" class="form-control" >
+
+                                        {% for item in position %}
+                                            <option value="{{ item.position_name }}">
+                                                {{ item.position_name }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fa fa-search"></i>
+                                        筛选广告位
+                                    </button>
+                                </div>
+
+                                <div class="col-md-1" style="float: right">
+                                    <a href="">
+                                        <span  type="submit" class="btn btn-danger">
+                                            <i class="fa fa-refresh"></i>
+                                            重新加载
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                </form>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title"></h3>
+
+                            <div class="box-tools" style="float: right;left: 6px;">
+                                <button class="btn btn-success" onclick="location.href = '/advertisement/adCreate'">
+                                    <i class="fa fa-amazon fa-fw"></i>
+                                    新增广告
+                                </button>
+                            </div>
+
+                            <div class="box-tools">
+                                <div class="input-group input-group-sm" style="width: 1px;">
+
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn bg-olive btn-flat btn-xs">
+                                            <i class="fa fa-calendar"></i>
+                                            共有广告：{{ data.total_items | default(0) }}个
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-hover  table-bordered text-center">
+                                <tr>
+                                    <th>排序</th>
+                                    <th>ID</th>
+                                    <th>图片</th>
+                                    <th>广告位</th>
+                                    <th>链接</th>
+                                    <th>失效时间</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                                <tbody id="tbody">
+                                {% for item in data.items %}
+                                    <tr id="position_{{ item.id }}">
+                                        <td>
+                                            <b style="color: red;;">
+                                                {{ item.sort }}
+                                            </b>
+                                        </td>
+
+                                        <td>
+                                            {{ item.id }}
+                                        </td>
+
+                                        <td>
+                                            <img style="width:100px;cursor: pointer;" src="http://cdn.saatoo.cn/{{ item.image }}" >
+                                        </td>
+
+                                        <td>
+                                            {{ item.position_name }}
+                                        </td>
+
+                                        <td>
+                                            <a href="{{ item.link}}" target="_blank">
+                                                {{ item.link }}
+                                            </a>
+                                        </td>
+
+                                        <td>
+
+                                            {{ date('Y-m-d H:i:s',item.invalid_time) }}
+                                        </td>
+
+                                        <td>
+
+                                            {% if item.state == 1 %}
+                                                {% if item.invalid_time <= time() %}
+                                                    <span class="label label-danger">
+                                                        已过期
+                                                    </span>
+                                                    {% else %}
+                                                    <span class="label label-success">
+                                                        投放中
+                                                    </span>
+                                                {% endif %}
+                                            {% else %}
+                                                <span class="label label-default">
+                                                    未投放
+                                                </span>
+                                            {% endif %}
+                                        </td>
+
+                                        <td>
+                                            <button onclick="top.location.href = '/advertisement/adEdit/{{ item.id }}'" class="btn btn-success btn-xs" title="">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+
+                                            <button onclick="user_recycle('{{ item.id }}')" class="btn btn-danger btn-xs" title="删除到回收站">
+                                                <i class="fa fa-remove"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="100">
+                                            暂无广告
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+            </div>
+
+            {#分页页面#}
+            {% if data.total_pages > 1 %}
+                {% include 'layout/page.twig' %}
+            {% endif %}
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <script>
+        var user_recycle = function (uid) {
+            layer.confirm('确认删除广告位?', function (index) {
+                $.ajax({
+                    url:'handle',
+                    type:'post',
+                    data:{
+                        aid:uid,
+                        t:'a'
+                    },
+                    success:function($data){
+
+                        if($data.msg == 'valid'){
+                            $('#position_' + uid).fadeOut(function () {
+                                $(this).remove();
+                                layer.msg('删除成功!',valid);
+                                setTimeout(function () {
+                                    if($('#tbody').children('tr').length <= 0){
+                                        window.location.reload();
+                                    }
+                                },1)
+                            });
+
+                        }else{
+                            layer.msg('回收错误,或没有权限操作!',invalid)
+                        }
+
+                        layer.close(index);
+                    },
+                    error:function(){
+                        setTimeout(function(){
+                            window.location.reload(1);
+                        },1500)
+                    }
+                });
+            })
+        };
+    </script>
+{% endblock %}
+
+{% block pageJs %}
+    <script>
+        var handle_adPosition = function (id) {
+            var url = '';
+            if(id){
+                url = '/advertisement/editPosition/' + id;
+            }else{
+                url = '/advertisement/addPosition';
+            }
+
+            layer.open({
+                type: 2,
+                shade: 0.6,
+                shadeClose:false,
+                area: ['30%','53%'],
+                content: url
+            });
+        }
+    </script>
+{% endblock %}
+
+
